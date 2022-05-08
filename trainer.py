@@ -84,6 +84,7 @@ class Trainer(object):
                           'slot_labels_ids': batch[4]}
                 if self.args.model_type != 'distilbert':
                     inputs['token_type_ids'] = batch[2]
+
                 outputs = self.model(**inputs)
                 loss = outputs[0]
 
@@ -106,6 +107,8 @@ class Trainer(object):
 
                     if self.args.save_steps > 0 and global_step % self.args.save_steps == 0:
                         self.save_model()
+
+                epoch_iterator.set_postfix({'loss': tr_loss / global_step})
 
                 if 0 < self.args.max_steps < global_step:
                     epoch_iterator.close()

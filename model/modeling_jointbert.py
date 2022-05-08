@@ -39,6 +39,9 @@ class JointBERT(BertPreTrainedModel):
                 intent_loss = intent_loss_fct(intent_logits.view(-1, self.num_intent_labels), intent_label_ids.view(-1))
             total_loss += intent_loss
 
+        # import pdb
+        # pdb.set_trace()
+
         # 2. Slot Softmax
         if slot_labels_ids is not None:
             if self.args.use_crf:
